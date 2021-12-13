@@ -1,0 +1,133 @@
+<form class="bg-white" autocomplete="off" novalidate #form="ngForm" (ngSubmit)="submitForm(form)">
+
+  <!-- CABECERA -->
+  <div class="row">
+    <div class="col">
+      <div class="p-2" style="background-color:bisque;border-radius:8px;">
+        <div class="centerBlock">
+          <h4>Restaurante <i><b>El Capricho</b></i></h4>
+        </div>
+        Realice ahora su <b>reserva:</b><br />
+      </div>
+    </div>
+  </div>
+
+  <!-- MENSAJE DE CONFIRMACIÓN -->
+  <div class="row mb-3">
+    <div class="col">
+      <div class="bg-success text-white p-2" *ngIf="formSubmitted">
+        <div class="centerBlock">
+          ☑ <b>Su reserva se ha realizado corretamente</b>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTROL NOMBRE -->
+  <div class="row mb-2">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label>Nombre <a id="color">*</a></label>
+            <input class="form-control" name="nombre"
+                   [(ngModel)]="restaurant.nombre" required
+                   #nombre="ngModel"
+                   minlength="3"
+                   pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ]+$"
+                   (click)="ObligatoryField()"
+                   [disabled]="formSubmitted"/>
+            <ul class="text-danger list-unstyled" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+              <li *ngFor="let error of getValidationMessages(nombre)">{{error}} </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label>Apellido(s) <a id="color">*</a></label>
+            <input class="form-control" name="apellido"
+                   [(ngModel)]="restaurant.apellidos" required
+                   #apellido="ngModel"
+                   pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ]+$"
+                   minlength="2"
+                   (click)="ObligatoryField()"
+                   [disabled]="formSubmitted"/>
+            <ul class="text-danger list-unstyled" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+              <li *ngFor="let error of getValidationMessages(apellido)">{{error}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTROL EMAIL -->
+  <div class="row mb-2">
+    <div class="col">
+      <div class="form-group">
+        <label>Email <a id="color">*</a></label>
+        <input type="email" class="form-control" name="email"
+               [(ngModel)]="restaurant.email" required
+               #email="ngModel"
+               pattern="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+               (click)="ObligatoryField()"
+               placeholder="Ejemplo: nombre@ejemplo.com"
+               [disabled]="formSubmitted"/>
+        <ul class="text-danger list-unstyled" *ngIf="email.invalid && (email.dirty || email.touched)">
+          <li *ngFor="let error of getValidationMessages(email)">{{error}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTROL FECHA-->
+  <div class="row mb-2">
+    <div class="col">
+      <div class="form-group">
+        <label>Fecha <a id="color">*</a></label>
+        <input class="form-control" type="date" name="fecha"
+               [(ngModel)]="restaurant.fecha"
+               #fecha="ngModel"
+               required
+               (click)="ObligatoryField()"
+               [disabled]="formSubmitted"
+               [min]="minDate"/>
+        <ul class="text-danger list-unstyled" *ngIf="fecha.invalid && (fecha.dirty || fecha.touched)">
+          <li *ngFor="let error of getValidationMessages(fecha)">{{error}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTROL HORA-->
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label>Hora <a id="color">*</a></label>
+        <select [(ngModel)]="restaurant.hora"
+               #hora="ngModel" required class="form-select" name="hora"
+               (click)="ObligatoryField()"
+               [disabled]="formSubmitted">
+          <option selected value="" disabled>Seleccione una hora</option>
+          <option value="15:00">15:00</option>
+          <option value="15:30">15:30</option>
+          <option value="20:00">20:00</option>
+          <option value="20:15">20:15</option>
+        </select>
+        <ul class="text-danger list-unstyled" *ngIf="hora.invalid && (hora.dirty || hora.touched)">
+          <li *ngFor="let error of getValidationMessages(hora)">{{error}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTON -->
+  <div class="row">
+    <div class="col">
+      <div class="d-grid gap-2">
+        <button class="btn btn-primary m-3" type="submit">Reservar</button>
+      </div>
+      <div style="font-size:smaller;font-style:italic;color:red;">{{mensaje}}</div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,33 @@
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
+  border: 2px solid #ff0000;
+}
+
+select.ng-dirty.ng-valid, input.ng-dirty.ng-valid {
+  border: 2px solid #6bc502;
+}
+.centerBlock {
+  display: table;
+  margin: auto;
+}
+
+h4 {
+  font-family: 'Palatino Linotype';
+}
+
+input::placeholder {
+  font-size: small;
+  font-style: italic;
+}
+
+#color {
+  color: red;
+}
+
+form {
+  margin: 0 auto;
+  padding: 1em;
+  box-shadow: 0 0 6px #CCC;
+  border: 1px solid #CCC;
+  border-radius: 10px;
+}
+
